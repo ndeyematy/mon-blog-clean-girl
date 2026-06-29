@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ma Routine Clean Girl ✿</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Lato', sans-serif; background: #fff5f7; color: #5a2d3a; min-height: 100vh; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2rem; background: #fff0f4;
+    border-bottom: 1.5px solid #f9c8d8;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: #8b2244; }
+  .nav-date { font-size: 0.78rem; color: #c2607a; letter-spacing: 0.06em; }
+
+  /* MAIN */
+  .main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+  /* HEADER */
+  .top-header { text-align: center; padding: 1.5rem 1rem 1.5rem; margin-bottom: 1.5rem; }
+  .top-header h1 { font-family: 'Playfair Display', serif; font-size: 2.4rem; font-style: italic; font-weight: 600; color: #8b2244; margin-bottom: 0.3rem; }
+  .top-header p { font-size: 0.85rem; color: #c2607a; font-weight: 300; margin-bottom: 0.5rem; }
+  .hearts { font-size: 0.9rem; color: #f48fb1; letter-spacing: 0.3rem; }
+
+  /* DATE + PROGRESS */
+  .date-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #fff; border: 1px solid #f9c8d8; border-radius: 14px;
+    padding: 1rem 1.4rem; margin-bottom: 1.5rem;
+  }
+  .date-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: #c2607a; margin-bottom: 0.2rem; }
+  .date-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-style: italic; color: #8b2244; }
+  .progress-wrap { text-align: right; }
+  .progress-label { font-size: 0.68rem; color: #c2607a; margin-bottom: 0.4rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .progress-bar { width: 160px; height: 8px; background: #fde8ef; border-radius: 99px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #f48fb1, #e91e7a); border-radius: 99px; transition: width 0.4s; }
+  .progress-pct { font-size: 0.72rem; color: #c2607a; text-align: right; margin-top: 0.3rem; }
+
+  /* PANELS GRID */
+  .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-bottom: 1.1rem; }
+  @media (max-width: 580px) { .panels { grid-template-columns: 1fr; } }
+
+  .panel { background: #fff; border: 1px solid #f9c8d8; border-radius: 16px; padding: 1.15rem 1.25rem; }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+  .panel-title { display: flex; align-items: center; gap: 0.5rem; font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic; color: #8b2244; }
+  .panel-icon { font-size: 1rem; color: #f48fb1; }
+  .badge { font-size: 0.65rem; background: #fde8ef; border: 1px solid #f9c8d8; color: #c2607a; border-radius: 99px; padding: 0.15rem 0.6rem; letter-spacing: 0.08em; }
+
+  /* TASK ITEMS */
+  .task-item { display: flex; align-items: center; gap: 0.65rem; padding: 0.6rem 0.4rem; border-bottom: 1px solid #fde8ef; cursor: pointer; border-radius: 8px; transition: background 0.15s; }
+  .task-item:last-of-type { border-bottom: none; }
+  .task-item:hover { background: #fff5f7; }
+  .cb { width: 19px; height: 19px; border: 1.5px solid #f48fb1; border-radius: 5px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; background: #fff; }
+  .cb.checked { background: #e91e7a; border-color: #e91e7a; }
+  .cb i { display: none; color: #fff; font-size: 11px; }
+  .cb.checked i { display: block; }
+  .task-text { font-size: 0.84rem; color: #5a2d3a; flex: 1; transition: color 0.2s; }
+  .task-text.done { text-decoration: line-through; color: #c2a0aa; }
+  .delete-btn { color: #f9c8d8; cursor: pointer; padding: 0 0.2rem; border: none; background: transparent; font-size: 0.9rem; transition: color 0.2s; flex-shrink: 0; }
+  .delete-btn:hover { color: #e91e7a; }
+
+  /* ADD ROW */
+  .add-row { display: flex; gap: 0.5rem; margin-top: 0.9rem; }
+  .add-input { flex: 1; padding: 0.55rem 0.85rem; border: 1px solid #f9c8d8; border-radius: 10px; font-size: 0.82rem; font-family: 'Lato', sans-serif; color: #5a2d3a; outline: none; background: #fff5f7; }
+  .add-input:focus { border-color: #f48fb1; background: #fff; }
+  .add-input::placeholder { color: #d4a4b4; }
+  .add-btn { background: #e91e7a; border: none; border-radius: 10px; padding: 0.55rem 0.9rem; color: #fff; font-size: 0.8rem; cursor: pointer; font-family: 'Lato', sans-serif; white-space: nowrap; transition: background 0.2s; }
+  .add-btn:hover { background: #c2607a; }
+
+  /* FULL PANEL */
+  .full-panel { background: #fff; border: 1px solid #f9c8d8; border-radius: 16px; padding: 1.15rem 1.25rem; margin-bottom: 1.1rem; }
+
+  /* DAY PLANNER SLOTS */
+  .day-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem; margin-top: 0.9rem; }
+  @media (max-width: 500px) { .day-slots { grid-template-columns: repeat(2, 1fr); } }
+  .slot { background: #fde8ef; border: 1px solid #f9c8d8; border-radius: 10px; padding: 0.7rem 0.8rem; min-height: 75px; }
+  .slot-time { font-size: 0.65rem; color: #c2607a; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.35rem; font-weight: 500; }
+  .slot-task { font-size: 0.8rem; color: #8b2244; line-height: 1.45; }
+  .slot-del { font-size: 0.7rem; color: #f48fb1; border: none; background: transparent; cursor: pointer; padding: 0; margin-top: 0.3rem; display: block; transition: color 0.15s; font-family: 'Lato', sans-serif; }
+  .slot-del:hover { color: #e91e7a; }
+  .time-input { width: 85px; padding: 0.55rem 0.5rem; border: 1px solid #f9c8d8; border-radius: 10px; font-size: 0.78rem; font-family: 'Lato', sans-serif; color: #5a2d3a; outline: none; background: #fff5f7; flex-shrink: 0; }
+  .time-input:focus { border-color: #f48fb1; }
+
+  /* MOOD */
+  .mood-row { display: flex; gap: 0.6rem; margin-top: 0.75rem; flex-wrap: wrap; }
+  .mood-btn { background: #fff5f7; border: 1px solid #f9c8d8; border-radius: 99px; padding: 0.4rem 1rem; font-size: 0.8rem; cursor: pointer; color: #c2607a; transition: all 0.2s; font-family: 'Lato', sans-serif; }
+  .mood-btn:hover, .mood-btn.active { background: #fde8ef; border-color: #f48fb1; color: #8b2244; }
+
+  /* NOTES */
+  .notes-area { width: 100%; min-height: 100px; padding: 0.8rem 0.95rem; border: 1px solid #f9c8d8; border-radius: 10px; font-size: 0.84rem; font-family: 'Lato', sans-serif; color: #5a2d3a; resize: vertical; outline: none; background: #fff5f7; margin-top: 0.75rem; line-height: 1.7; }
+  .notes-area:focus { border-color: #f48fb1; background: #fff; }
+  .notes-area::placeholder { color: #d4a4b4; }
+
+  /* DIVIDER */
+  .rose-rule { height: 1px; background: #f9c8d8; margin: 0.25rem 0 1rem; position: relative; }
+  .rose-rule::after { content: '✿'; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: #fff; padding: 0 0.5rem; color: #f48fb1; font-size: 0.75rem; }
+
+  /* RESET */
+  .reset-row { display: flex; justify-content: center; margin-top: 1rem; }
+  .reset-btn { background: transparent; border: 1px solid #f9c8d8; border-radius: 99px; padding: 0.5rem 1.6rem; font-size: 0.75rem; color: #c2607a; cursor: pointer; font-family: 'Lato', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
+  .reset-btn:hover { background: #fde8ef; border-color: #f48fb1; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 1.5rem; background: #fff0f4; border-top: 1.5px solid #f9c8d8; font-size: 0.78rem; color: #c2607a; letter-spacing: 0.07em; }
+  .footer-deco { font-size: 0.9rem; color: #f48fb1; letter-spacing: 0.3rem; margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">✿ Ma Routine Clean Girl</div>
+  <div class="nav-date" id="navDate"></div>
+</nav>
+
+<div class="main">
+
+  <div class="top-header">
+    <h1>Mon Planificateur</h1>
+    <p>Coche tes tâches, planifie ta journée et reste organisée ✿</p>
+    <div class="hearts">♡ ✿ ♡ ✿ ♡</div>
+  </div>
+
+  <div class="date-bar">
+    <div>
+      <div class="date-label">Aujourd'hui</div>
+      <div class="date-val" id="dateDisplay"></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label">Progression du jour</div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <div class="progress-pct" id="progressPct">0% complété ✿</div>
+    </div>
+  </div>
+
+  <div class="panels">
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-icon">✿</span> Routine matin</div>
+        <span class="badge" id="morningBadge">0/0</span>
+      </div>
+      <div class="rose-rule"></div>
+      <div id="morningList"></div>
+      <div class="add-row">
+        <input class="add-input" id="morningInput" placeholder="Ajouter une tâche matin...">
+        <button class="add-btn" onclick="addTask('morning')">+ Ajouter</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-icon">♡</span> Routine soir</div>
+        <span class="badge" id="eveningBadge">0/0</span>
+      </div>
+      <div class="rose-rule"></div>
+      <div id="eveningList"></div>
+      <div class="add-row">
+        <input class="add-input" id="eveningInput" placeholder="Ajouter une tâche soir...">
+        <button class="add-btn" onclick="addTask('evening')">+ Ajouter</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-icon">◇</span> À faire aujourd'hui</div>
+        <span class="badge" id="todoBadge">0/0</span>
+      </div>
+      <div class="rose-rule"></div>
+      <div id="todoList"></div>
+      <div class="add-row">
+        <input class="add-input" id="todoInput" placeholder="Nouvelle tâche...">
+        <button class="add-btn" onclick="addTask('todo')">+ Ajouter</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title"><span class="panel-icon">✦</span> Mes habitudes</div>
+        <span class="badge" id="habitBadge">0/0</span>
+      </div>
+      <div class="rose-rule"></div>
+      <div id="habitList"></div>
+      <div class="add-row">
+        <input class="add-input" id="habitInput" placeholder="Nouvelle habitude...">
+        <button class="add-btn" onclick="addTask('habit')">+ Ajouter</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="full-panel">
+    <div class="panel-header">
+      <div class="panel-title"><span class="panel-icon">♡</span> Planifier ma journée</div>
+    </div>
+    <div class="rose-rule"></div>
+    <div class="day-slots" id="daySlots"></div>
+    <div class="add-row" style="margin-top:1rem">
+      <input type="time" class="time-input" id="slotTime" value="08:00">
+      <input class="add-input" id="slotInput" placeholder="Activité à planifier...">
+      <button class="add-btn" onclick="addSlot()">+ Planifier</button>
+    </div>
+  </div>
+
+  <div class="full-panel">
+    <div class="panel-header">
+      <div class="panel-title"><span class="panel-icon">✿</span> Mon humeur du jour</div>
+    </div>
+    <div class="rose-rule"></div>
+    <div class="mood-row">
+      <button class="mood-btn" onclick="setMood(this)">Rayonnante ✨</button>
+      <button class="mood-btn" onclick="setMood(this)">Motivée 💪</button>
+      <button class="mood-btn" onclick="setMood(this)">Zen 🌸</button>
+      <button class="mood-btn" onclick="setMood(this)">Fatiguée 😴</button>
+      <button class="mood-btn" onclick="setMood(this)">Heureuse 🌷</button>
+      <button class="mood-btn" onclick="setMood(this)">Créative 🎨</button>
+    </div>
+  </div>
+
+  <div class="full-panel">
+    <div class="panel-header">
+      <div class="panel-title"><span class="panel-icon">♡</span> Notes & intentions du jour</div>
+    </div>
+    <div class="rose-rule"></div>
+    <textarea class="notes-area" id="notesArea" placeholder="Écris tes intentions, ta gratitude, tes objectifs du jour..."></textarea>
+  </div>
+
+  <div class="reset-row">
+    <button class="reset-btn" onclick="resetAll()">✿ Réinitialiser la journée</button>
+  </div>
+
+</div>
+
+<footer>
+  ✿ &nbsp; Ma Routine Clean Girl &nbsp; ♡ &nbsp; beauté · bien-être · organisation &nbsp; ♡ &nbsp; ✿
+  <div class="footer-deco">♡ ✿ ♡ ✿ ♡</div>
+</footer>
+
+<script>
+var state = {
+  morning: [
+    { id: 1, text: "Boire un verre d'eau citronnée", done: false },
+    { id: 2, text: "Yoga ou marche 10 minutes", done: false },
+    { id: 3, text: "Routine skincare matin + SPF", done: false },
+    { id: 4, text: "Petit-déjeuner équilibré", done: false }
+  ],
+  evening: [
+    { id: 1, text: "Double nettoyage visage", done: false },
+    { id: 2, text: "Sérum + crème de nuit", done: false },
+    { id: 3, text: "Journaling & gratitude", done: false },
+    { id: 4, text: "Lecture 20 minutes", done: false }
+  ],
+  todo: [
+    { id: 1, text: "Préparer ma tenue clean girl", done: false },
+    { id: 2, text: "Boire 2L d'eau", done: false }
+  ],
+  habit: [
+    { id: 1, text: "Matcha du matin ☕", done: false },
+    { id: 2, text: "5 min de méditation", done: false },
+    { id: 3, text: "Éviter les écrans avant 9h", done: false }
+  ],
+  slots: [
+    { id: 1, time: "06:30", task: "Réveil & eau citronnée" },
+    { id: 2, time: "07:00", task: "Skincare & tenue" },
+    { id: 3, time: "12:00", task: "Déjeuner sain" },
+    { id: 4, time: "21:00", task: "Routine beauté soir" }
+  ],
+  nextId: 100
+};
+
+function formatDate() {
+  var d = new Date();
+  var days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  var months = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+  return days[d.getDay()] + ' ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+function updateProgress() {
+  var all = [].concat(state.morning, state.evening, state.todo, state.habit);
+  var total = all.length;
+  var done = all.filter(function(t) { return t.done; }).length;
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '% complété ✿';
+}
+
+function renderList(key) {
+  var el = document.getElementById(key + 'List');
+  var badge = document.getElementById(key + 'Badge');
+  var tasks = state[key];
+  var done = tasks.filter(function(t) { return t.done; }).length;
+  badge.textContent = done + '/' + tasks.length;
+  el.innerHTML = tasks.map(function(t) {
+    return '<div class="task-item" onclick="toggleTask(\'' + key + '\',' + t.id + ')">'
+      + '<div class="cb' + (t.done ? ' checked' : '') + '"><i class="ti ti-check" aria-hidden="true"></i></div>'
+      + '<span class="task-text' + (t.done ? ' done' : '') + '">' + t.text + '</span>'
+      + '<button class="delete-btn" onclick="event.stopPropagation();deleteTask(\'' + key + '\',' + t.id + ')" aria-label="Supprimer"><i class="ti ti-x" aria-hidden="true"></i></button>'
+      + '</div>';
+  }).join('');
+  updateProgress();
+}
+
+function toggleTask(key, id) {
+  state[key] = state[key].map(function(t) {
+    if (t.id === id) t.done = !t.done;
+    return t;
+  });
+  renderList(key);
+}
+
+function deleteTask(key, id) {
+  state[key] = state[key].filter(function(t) { return t.id !== id; });
+  renderList(key);
+}
+
+function addTask(key) {
+  var input = document.getElementById(key + 'Input');
+  var val = input.value.trim();
+  if (!val) return;
+  state[key].push({ id: state.nextId++, text: val, done: false });
+  input.value = '';
+  renderList(key);
+}
+
+function renderSlots() {
+  var el = document.getElementById('daySlots');
+  var sorted = state.slots.slice().sort(function(a, b) { return a.time.localeCompare(b.time); });
+  if (sorted.length === 0) {
+    el.innerHTML = '<div style="color:#d4a4b4;font-size:0.82rem;font-style:italic;padding:0.5rem 0;">Aucune activité planifiée pour le moment ✿</div>';
+    return;
+  }
+  el.innerHTML = sorted.map(function(s) {
+    return '<div class="slot">'
+      + '<div class="slot-time">' + s.time + '</div>'
+      + '<div class="slot-task">' + s.task + '</div>'
+      + '<button class="slot-del" onclick="deleteSlot(' + s.id + ')">✕ supprimer</button>'
+      + '</div>';
+  }).join('');
+}
+
+function addSlot() {
+  var t = document.getElementById('slotTime').value;
+  var v = document.getElementById('slotInput').value.trim();
+  if (!v) return;
+  state.slots.push({ id: state.nextId++, time: t, task: v });
+  document.getElementById('slotInput').value = '';
+  renderSlots();
+}
+
+function deleteSlot(id) {
+  state.slots = state.slots.filter(function(s) { return s.id !== id; });
+  renderSlots();
+}
+
+function setMood(btn) {
+  document.querySelectorAll('.mood-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+}
+
+function resetAll() {
+  if (!confirm('Réinitialiser toute la journée ? ✿')) return;
+  ['morning','evening','todo','habit'].forEach(function(key) {
+    state[key].forEach(function(t) { t.done = false; });
+  });
+  document.getElementById('notesArea').value = '';
+  document.querySelectorAll('.mood-btn').forEach(function(b) { b.classList.remove('active'); });
+  renderAll();
+}
+
+function renderAll() {
+  var d = formatDate();
+  document.getElementById('dateDisplay').textContent = d;
+  document.getElementById('navDate').textContent = d;
+  renderList('morning');
+  renderList('evening');
+  renderList('todo');
+  renderList('habit');
+  renderSlots();
+  updateProgress();
+}
+
+['morning','evening','todo','habit'].forEach(function(key) {
+  document.getElementById(key + 'Input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') addTask(key);
+  });
+});
+document.getElementById('slotInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') addSlot();
+});
+
+renderAll();
+</script>
+</body>
+</html>
